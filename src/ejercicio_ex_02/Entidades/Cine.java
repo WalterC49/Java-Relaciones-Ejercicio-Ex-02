@@ -5,6 +5,8 @@
  */
 package ejercicio_ex_02.Entidades;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Walter
@@ -12,15 +14,17 @@ package ejercicio_ex_02.Entidades;
 public class Cine {
     private Asiento sala[][];
     private Pelicula peli;
-    private Integer precio;
+    private Float precio;
+    private ArrayList<String> asientosLibres;
     
     public Cine(){
     }
 
-    public Cine(Asiento[][] sala, Pelicula peli, Integer precio) {
+    public Cine(Asiento[][] sala, Pelicula peli, Float precio, ArrayList<String> asientosLibres) {
         this.sala = sala;
         this.peli = peli;
         this.precio = precio;
+        this.asientosLibres = asientosLibres;
     }
 
     public Asiento[][] getSala() {
@@ -39,16 +43,24 @@ public class Cine {
         this.peli = peli;
     }
 
-    public Integer getPrecio() {
+    public Float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Integer precio) {
+    public void setPrecio(Float precio) {
         this.precio = precio;
+    }
+
+    public ArrayList<String> getAsientosLibres() {
+        return asientosLibres;
+    }
+
+    public void setAsientosLibres(ArrayList<String> asientosLibres) {
+        this.asientosLibres = asientosLibres;
     }
 
     @Override
     public String toString() {
-        return "Cine{" + "sala=" + sala + ", peli=" + peli + ", precio=" + precio + '}';
+        return "Cine{" + "sala=" + sala + ", peli=" + peli + ", precio=" + precio + ", asientosLibres=" + asientosLibres + '}';
     }
 }

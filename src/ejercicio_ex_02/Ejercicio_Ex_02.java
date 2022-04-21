@@ -28,6 +28,8 @@ numero de cada asiento o solo las X y espacios vacíos.
 */
 package ejercicio_ex_02;
 
+import ejercicio_ex_02.Servicios.Servicios;
+
 /**
  *
  * @author Walter
@@ -38,7 +40,9 @@ public class Ejercicio_Ex_02 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Servicios Serv = new Servicios();
+        //.CrearCine();
+        Serv.IngresarPrecioCine();
     }
     
 }

@@ -11,14 +11,14 @@ package ejercicio_ex_02.Entidades;
  */
 public class Pelicula {
     private String titulo;
-    private float duracion;
-    private int edadMinima;
+    private String duracion;
+    private Integer edadMinima;
     private String director;
     
     Pelicula(){
     }
 
-    public Pelicula(String titulo, float duracion, int edadMinima, String director) {
+    public Pelicula(String titulo, String duracion, Integer edadMinima, String director) {
         this.titulo = titulo;
         this.duracion = duracion;
         this.edadMinima = edadMinima;
@@ -33,19 +33,19 @@ public class Pelicula {
         this.titulo = titulo;
     }
 
-    public float getDuracion() {
+    public String getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(float duracion) {
+    public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
 
-    public int getEdadMinima() {
+    public Integer getEdadMinima() {
         return edadMinima;
     }
 
-    public void setEdadMinima(int edadMinima) {
+    public void setEdadMinima(Integer edadMinima) {
         this.edadMinima = edadMinima;
     }
 
