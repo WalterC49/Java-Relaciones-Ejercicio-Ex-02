@@ -40,9 +40,16 @@ public class Ejercicio_Ex_02 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("Este programa simula un cine que tiene una sala con 8x6 asientos.");
         Servicios Serv = new Servicios();
-        //.CrearCine();
+        System.out.println("Preparando cine.");
+        Serv.CrearSala();
+        Serv.IngresarPelicula();
         Serv.IngresarPrecioCine();
+        System.out.println("\nCine listo para recibir espectadores.");
+        Serv.MostrarInfoSala();
+        Serv.IngresarEspectadores();
+        Serv.MostrarSala();
     }
     
 }

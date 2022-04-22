@@ -58,14 +58,13 @@ public class Servicios {
         
         ArrayList<String> a = new ArrayList();
         for (int i = 0; i < 8; i++) {
-            for(char j='A';j<'F';j++){
+            for(char j='A';j<'G';j++){
                 String asiento=(8-i)+String.valueOf(j);
                 a.add(asiento);
             }
         }
+        System.out.println(a);
         c.setAsientosLibres(a);
-
-        
     }
     
     public void IngresarPelicula(){
@@ -74,42 +73,48 @@ public class Servicios {
         String duracion;
         Integer edad;
         String director;
-        System.out.print("Ingrese el nombre de una película: ");
+        System.out.print("\nIngrese el nombre de una película: ");
         nombre=leer.next();
-        /*do{
+        do{
             System.out.print("Ingrese su duración(00:00:00): ");
             duracion=leer.next();
-            String aux="";
+            /*String aux="";
             for(int i=0;i<duracion.length();i++){
                 if(duracion.substring(i, i+1).equals(",")||duracion.substring(i, i+1).equals(";")){
                     aux=aux.concat(":");
                 }else{
                     aux=aux.concat(duracion.substring(i, i+1));
                 }
-            }
-        }while(listo);*/
+            }*/
+        }while(false);
         System.out.print("Ingrese la edad mínima para ver la película: ");
         edad=leer.nextInt();
         System.out.print("Ingrese el director de la película: ");
         director=leer.next();
-        //c.setPeli(new Pelicula(nombre,duracion,edad,director));
+        c.setPeli(new Pelicula(nombre,duracion,edad,director));
     }
     
     public void IngresarPrecioCine(){
         float precio;
         String aux;
-        System.out.print("Ingrese un precio: ");
+        System.out.print("Ingrese el precio de la entrada: ");
         aux=leer.next();
         if(aux.contains(",")){
             aux=aux.replace(",", ".");
         }
         precio=parseFloat(aux);
-        System.out.println(precio);
         c.setPrecio(precio);
     }
     
+    public void MostrarInfoSala(){
+        System.out.println("\nPelicula: " + c.getPelicula().getTitulo());
+        System.out.println("Duración: " + c.getPelicula().getDuracion());
+        System.out.println("Edad mínima requerida: "+c.getPelicula().getEdadMinima());
+        System.out.println("Precio de entrada: "+c.getPrecio());
+    }
+    
     public void MostrarSala(){
-        System.out.println("Sala:");
+        System.out.println("\nEstado de actual de la sala:");
         for(int i=0;i<8;i++){
             for(int j=0;j<6;j++){
                 System.out.print(c.getSala()[i][j]);
@@ -121,7 +126,7 @@ public class Servicios {
     
     public void IngresarEspectadores(){
         int cant;
-        System.out.print("Ingrese la cantidad de espectadores que quiere ingresar: ");
+        System.out.print("\nIngrese la cantidad de espectadores que quiere ingresar: ");
         cant=leer.nextInt();
         System.out.println("Ahora se les dará edades y dinero de forma aleatoria.");
         ArrayList<Espectador> interesados = new ArrayList();
@@ -133,42 +138,92 @@ public class Servicios {
         for (Espectador e : interesados) {
             MostrarSala();
             String lugar;
-            boolean listo=false;
+            boolean vof=false;
+            
             do{
-                
-            }while(listo);
-            System.out.print(e.getNombre()+" elija un lugar(A2 por ejemplo): ");
-            lugar=leer.next();
-            if(lugar.length()>8||lugar.length()<2){
-                System.out.println("Ingreso no valido.");
-            }else{
-                boolean fc,cc=false;
-                String f,col;
-                
-                f=lugar.substring(0,1);
-                col=toUpperCase(lugar.substring(1));
-                
-                fc = !(parseInt(f)>8||parseInt(f)<1);
-                
-                for(char i='A';i<'F';i++){
-                    cc = String.valueOf(i).equals(col);
-                }
-                
-                if(fc&&cc){
-                    
-                }
-                
-                Asiento visual[][] = c.getSala();
-                for(int i=0;i<8;i++){
-                    for(int j=0;j<6;j++){
-                        if(c.getSala()[i][j].getUbicacion().equalsIgnoreCase(lugar)){
+                boolean listo=false;
+                System.out.println(e);
+                System.out.println(/*e.getNombre()+*/"Elija un lugar(2A por ejemplo): ");
+                lugar=toUpperCase(leer.next());
+                System.out.println(lugar);    
+                if(ValidarEntrada(lugar)){
+                    if (e.getEdad()>=c.getPelicula().getEdadMinima() && e.getDinero()>=c.getPrecio() && c.getAsientosLibres().size()>0){
+                        e.setDinero(e.getDinero()-c.getPrecio());
+                        
+                        for (String aux : c.getAsientosLibres()) {
                             
                         }
+                        
+                        for(int i=0;i<8;i++){
+                            for(int j=0;j<6;j++){
+                                if(c.getSala()[i][j].getUbicacion().equals(lugar)){
+                                    if(c.getSala()[i][j].getE()==null){
+                                        c.getSala()[i][j].setE(e);
+                                        c.getAsientosLibres().remove(lugar);
+                                        listo=true;
+                                    }else{
+                                        System.out.println("Ese asiento está ocupado.");
+                                        System.out.println("Se le dará otro de forma aleatoria.");
+                                        for(int k=0;k<8;k++){
+                                            for(int l=0;l<6;l++){
+                                                if(c.getSala()[k][l].getE()==null){
+                                                    c.getSala()[k][l].setE(e);
+                                                    c.getAsientosLibres().remove(c.getSala()[k][l].getUbicacion());
+                                                    listo=true;
+                                                    break;
+                                                }
+                                            }
+                                            if(listo){
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                if(listo){
+                                    break;
+                                }
+                            }
+                            if(listo){
+                                break;
+                            }
+                        } 
                     }
+                }else{
+                    System.out.println("Ingreso no valido.");
+                    vof=true;
+                }   
+            }while(vof);
+        }    
+    }           
+                
+    private boolean ValidarEntrada(String lugar){
+        boolean fc=false,cc=false;
+        String f,col;
+        
+        if(lugar.length()>8||lugar.length()<2){
+            return false;
+        }else{
+            f=lugar.substring(0,1);
+            for(char i='A';i<'z';i++){
+                if(f.contains(String.valueOf(i))){
+                    return false;
                 }
             }
+            fc = !(parseInt(f)>8||parseInt(f)<1);
+            
+            col=lugar.substring(1,2);
+                
+            for(char i='A';i<'G';i++){
+                if(String.valueOf(i).equals(col)){
+                    cc=true;
+                    break;
+                }
+            }
+            return fc&&cc;
         }
+    }        
         
-    }
+        
+    
     
 }

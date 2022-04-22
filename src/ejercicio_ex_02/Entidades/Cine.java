@@ -13,16 +13,16 @@ import java.util.ArrayList;
  */
 public class Cine {
     private Asiento sala[][];
-    private Pelicula peli;
+    private Pelicula pelicula;
     private Float precio;
     private ArrayList<String> asientosLibres;
     
     public Cine(){
     }
 
-    public Cine(Asiento[][] sala, Pelicula peli, Float precio, ArrayList<String> asientosLibres) {
+    public Cine(Asiento[][] sala, Pelicula pelicula, Float precio, ArrayList<String> asientosLibres) {
         this.sala = sala;
-        this.peli = peli;
+        this.pelicula = pelicula;
         this.precio = precio;
         this.asientosLibres = asientosLibres;
     }
@@ -35,12 +35,12 @@ public class Cine {
         this.sala = sala;
     }
 
-    public Pelicula getPeli() {
-        return peli;
+    public Pelicula getPelicula() {
+        return pelicula;
     }
 
-    public void setPeli(Pelicula peli) {
-        this.peli = peli;
+    public void setPeli(Pelicula pelicula) {
+        this.pelicula = pelicula;
     }
 
     public Float getPrecio() {
@@ -61,6 +61,6 @@ public class Cine {
 
     @Override
     public String toString() {
-        return "Cine{" + "sala=" + sala + ", peli=" + peli + ", precio=" + precio + ", asientosLibres=" + asientosLibres + '}';
+        return "Cine{" + "sala=" + sala + ", pelicula=" + pelicula + ", precio=" + precio + ", asientosLibres=" + asientosLibres + '}';
     }
 }
